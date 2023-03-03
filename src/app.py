@@ -31,12 +31,35 @@ def handle_hello():
     # this is how you can use the Family datastructure by calling its methods
     members = jackson_family.get_all_members()
     response_body = {
-        "hello": "world",
         "family": members
     }
+    return jsonify(response_body)
 
 
-    return jsonify(response_body), 200
+@app.route('/members', methods=['POST'])
+def add_member():
+    request_body = request.json
+    print(request_body)
+    # this is how you can use the Family datastructure by calling its methods
+    members = jackson_family.add_member(request_body)
+    response_body = {
+       
+        "family": members
+    }   
+    return jsonify(response_body)
+    
+#Esto trae todos los miembros de la familia
+# @app.route('/familia', methods=['GET'])
+# def traer_todos_familiares():
+#     familia = FamilyStructure.query.all()
+#     results = list(map(lambda item: item.serialize(),personaje))
+#     print(personaje)
+#     response_body = {
+#         "msg": "Hello, this is your GET all family response ",
+#         "personajes": results
+#     }
+
+    
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
